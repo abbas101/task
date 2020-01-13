@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <div class="col col-md-12 text-center">
+       <p class="lead mt-5">Search the artist name</p>
+      <div class=" col col-md-5 m-auto">
+
+      <!-- form for searching -->
+      <form [formGroup]="searchForm" (submit)="onSubmit(searchForm.value)">
+        <div class="input-group">
+          <input class="form-control" type="text"
+            placeholder="Search" formControlName="keyword" aria-label="Search">
+          <div class="input-group-append">
+            <span class="input-group-text" id="basic-text1" (click)="onSubmit(searchForm.value)">
+              <i class="fa fa-search"></i></span>
+          </div>
+        </div>
+      </form>
+    </div>
+    </div>
+  </div>
+  <!-- display records based on api behavior -->
+  <div class="row mt-5" *ngIf="!isHidden">
+    <div class="col-md-5" *ngIf="!noRecordFound">
+      <!-- clicking this card will take you to event page with name that came in model -->
+      <a [routerLink]="['/event', model?.name]" class="artist-event">
+      <div class="cards media">
+        <div class="media-left">
+          <img
+            src="{{ model?.thumb_url }}"
+            class="media-object">
+        </div>
+
+        <div class="media-body pl-2">
+          <h5 class="media-heading">
+            {{ model?.name }}
+          </h5>
+          <p> <a href="{{ model?.facebook_page_url }}" target="_blank" rel="noopener noreferrer">{{ model?.facebook_page_url }}</a></p>
+        </div>
+      </div>
+      </a>
+    </div>
+    <!-- when norecordfound is true it will show this message -->
+    <div class="col-md-12 col text-center" *ngIf="noRecordFound">
+      <p> No record found </p>
+    </div>
+
+  </div>
+
+</div>
